@@ -11,24 +11,25 @@ generate_messages(DEPENDENCIES sensor_msgs)
 
 catkin_package(CATKIN_DEPENDS cv_bridge image_transport message_runtime sensor_msgs)
 
-find_package(OpenCV)
+set(OpenCV_DIR /usr/local/share/OpenCV)
+find_package(${MY_OPENCV_RELEASE})
 
 include_directories(include ${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
 
 # add the publisher example
 add_executable(my_publisher src/my_publisher.cpp)
 add_dependencies(my_publisher ${catkin_EXPORTED_TARGETS} ${${PROJECT_NAME}_EXPORTED_TARGETS})
-target_link_libraries(my_publisher ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(my_publisher ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
 # add the subscriber example
 add_executable(my_subscriber src/my_subscriber.cpp)
 add_dependencies(my_subscriber ${catkin_EXPORTED_TARGETS} ${${PROJECT_NAME}_EXPORTED_TARGETS})
-target_link_libraries(my_subscriber ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(my_subscriber ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
 # add the plugin example
 add_library(resized_publisher src/manifest.cpp src/resized_publisher.cpp src/resized_subscriber.cpp)
 add_dependencies(resized_publisher ${catkin_EXPORTED_TARGETS} ${${PROJECT_NAME}_EXPORTED_TARGETS})
-target_link_libraries(resized_publisher ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(resized_publisher ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
 
 # Mark executables and/or libraries for installation
